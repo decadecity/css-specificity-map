@@ -1,0 +1,29 @@
+{
+  "name": "css-specificity-map",
+  "version": "0.0.0",
+  "description": "CSS specificity mapper",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/decadecity/css-specificity-map"
+  },
+  "keywords": [
+    "CSS",
+    "specificity"
+  ],
+  "author": "Orde Saunders",
+  "license": "Public Domain",
+  "bugs": {
+    "url": "https://github.com/decadecity/css-specificity-map/issues"
+  },
+  "homepage": "https://github.com/decadecity/css-specificity-map",
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-istanbul": "^0.4.0",
+    "gulp-jshint": "^1.9.0",
+    "gulp-mocha": "^2.0.0"
+  }
+}
