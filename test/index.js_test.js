@@ -44,6 +44,15 @@ describe('CSS specificity map', function(){
               "position": 0
             }]);
       });
+      it('should return specificity 1 for an attribute selector.', function(){
+        assert.deepEqual(
+            M.parse('*[type=text]{}'),
+            [{
+              "specificity": 1,
+              "selector": "*[type=text]",
+              "position": 0
+            }]);
+      });
       it('should return specificity 2 for an ID selector.', function(){
         assert.deepEqual(
             M.parse('#id{}'),
@@ -117,6 +126,15 @@ describe('CSS specificity map', function(){
                 "position": 0
               }]);
         });
+      it('should return specificity 10 for an attribute selector.', function(){
+        assert.deepEqual(
+            M.parse('*[type=text]{}', true),
+            [{
+              "specificity": 10,
+              "selector": "*[type=text]",
+              "position": 0
+            }]);
+      });
         it('should return specificity 100 for an ID selector.', function(){
           assert.deepEqual(
               M.parse('#id{}', true),
@@ -166,7 +184,7 @@ describe('CSS specificity map', function(){
                 "position": 0
               }]);
         });
-        it('should throw and error on an ID selector.', function(){
+        it('should throw an error on an ID selector.', function(){
           assert.throws(function() {M.parse('#id{}', false, true);}, /Found an ID but noID was enabled/);
         });
         it('should return specificity 2 for a rule with an `!important` annotation.', function(){
@@ -218,6 +236,49 @@ describe('CSS specificity map', function(){
                 "position": 0
               }]);
         });
+      });
+    });
+
+    /* No ID's shortcut function. */
+    describe('M.noId()', function(){
+      it('should return specificity -1 for the global selector.', function(){
+        assert.deepEqual(
+            M.noId('*{}', false, true),
+            [{
+              "specificity": -1,
+              "selector": "*",
+              "position": 0
+            }]);
+      });
+      it('should return specificity 0 for an element selector.', function(){
+        assert.deepEqual(
+            M.noId('body{}', false, true),
+            [{
+              "specificity": 0,
+              "selector": "body",
+              "position": 0
+            }]);
+      });
+      it('should return specificity 1 for a class selector.', function(){
+        assert.deepEqual(
+            M.noId('.class{}', false, true),
+            [{
+              "specificity": 1,
+              "selector": ".class",
+              "position": 0
+            }]);
+      });
+      it('should throw an error on an ID selector.', function(){
+        assert.throws(function() {M.noId('#id{}', false, true);}, /Found an ID but noID was enabled/);
+      });
+      it('should return specificity 2 for a rule with an `!important` annotation.', function(){
+        assert.deepEqual(
+            M.noId('*{color:red !important;}', false, true),
+            [{
+              "specificity": 2,
+              "selector": "* { !important }",
+              "position": 0
+            }]);
       });
     });
   });

@@ -26,7 +26,7 @@ var M = {};
  *
  * @returns {array} Sequence of data points containing specificity, selector and position.
  */
-M.parse = function (stylesheet, linear_scale, no_id, important_specificity) {
+M.parse = function generateMap(stylesheet, linear_scale, no_id, important_specificity) {
   'use strict';
 
   if (typeof stylesheet !== 'string') {
@@ -56,13 +56,13 @@ M.parse = function (stylesheet, linear_scale, no_id, important_specificity) {
         }
       });
 
-      // Walk through the selectors in this rule.
+      // Walk through the selectors using this rule.
       rule.selectors.forEach(function iterateSelectors(selector) {
         if (no_id && selector && selector.indexOf('#') > -1) {
           throw new Error('Found an ID but noID was enabled');
         }
 
-        // This is the data point on the graph for this rule.
+        // Data point on the graph for this selector.
         var data = {
           specificity: specificityPerSelector.measure(selector),
           selector: selector,
@@ -73,7 +73,7 @@ M.parse = function (stylesheet, linear_scale, no_id, important_specificity) {
         };
 
         if (important) {
-          data.specificity = data.specificity + important_specificity;
+          data.specificity += important_specificity;
           data.selector += ' { !important }';
         }
 
@@ -95,6 +95,17 @@ M.parse = function (stylesheet, linear_scale, no_id, important_specificity) {
   });
 
   return result;
+};
+
+/**
+ * Short cut function with defaults set for not using IDs as selectors.
+ *
+ * @param stylesheet {string} CSS to parse.
+ *
+ * @returns {array} Sequence of data points containing specificity, selector and position.
+ */
+M.noId = function generateMapNoId(stylesheet) {
+  return M.parse(stylesheet, false, true);
 };
 
 module.exports = M;
