@@ -25,5 +25,9 @@
     "gulp-istanbul": "^0.4.0",
     "gulp-jshint": "^1.9.0",
     "gulp-mocha": "^2.0.0"
+  },
+  "dependencies": {
+    "css": "^2.1.0",
+    "parker": "0.0.8"
   }
 }

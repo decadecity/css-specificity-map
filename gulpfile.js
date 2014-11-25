@@ -33,9 +33,11 @@ gulp.task('test', function(cb) {
     });
 });
 
-gulp.task('default', ['lint', 'test'], function() {
+gulp.task('watch', function() {
   gulp.watch(['src/*.js', 'test/*.js'], function() {
     watching = true;
     gulp.run('lint', 'test');
   });
 });
+
+gulp.task('default', ['lint', 'test', 'watch']);
