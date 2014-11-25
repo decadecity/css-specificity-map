@@ -88,6 +88,7 @@ describe('CSS specificity map', function(){
             ]);
       });
 
+      /* Linear scale */
       describe('M.parse() with a linear scale', function(){
         it('should return specificity 0 for the global selector.', function(){
           assert.deepEqual(
@@ -136,6 +137,7 @@ describe('CSS specificity map', function(){
         });
       });
 
+      /* Assume no IDs. */
       describe('M.parse() without IDs', function(){
         it('should return specificity -1 for the global selector.', function(){
           assert.deepEqual(
@@ -178,8 +180,9 @@ describe('CSS specificity map', function(){
         });
       });
 
+      /* Changing the pseudo-specificity of `!important` annotations. */
       describe('M.parse() with changed `!important` specificity.', function() {
-        it('should return specificity 2 for a rule with an `!important` annotation when we change the specificity of important.', function(){
+        it('should return specificity 2 for a rule with an `!important` annotation when we change the specificity of important to 100.', function(){
           assert.deepEqual(
               M.parse('*{color:red !important;}', false, false, 100),
               [{
@@ -188,12 +191,30 @@ describe('CSS specificity map', function(){
                 "position": 0
               }]);
         });
-        it('should return specificity 1 for a rule with an `!important` annotation when we change the specificity of important and declare no IDs.', function(){
+        it('should return specificity 2 for a rule with an `!important` annotation when we change the specificity of important using the string \'100\'.', function(){
+          assert.deepEqual(
+              M.parse('*{color:red !important;}', false, false, '100'),
+              [{
+                "specificity": 2,
+                "selector": "* { !important }",
+                "position": 0
+              }]);
+        });
+        it('should return specificity 1 for a rule with an `!important` annotation when we change the specificity of important to 100 and declare no IDs.', function(){
           assert.deepEqual(
               M.parse('*{color:red !important;}', false, true, 100),
               [{
                 "specificity": 1,
                 "selector": "* { !important }",
+                "position": 0
+              }]);
+        });
+        it('should return specificity 1 for a rule with an `!important` annotation when we change the specificity of important to 0', function(){
+          assert.deepEqual(
+              M.parse('.class{color:red !important;}', false, true, 0),
+              [{
+                "specificity": 1,
+                "selector": ".class { !important }",
                 "position": 0
               }]);
         });
