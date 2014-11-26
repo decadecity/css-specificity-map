@@ -40,8 +40,8 @@ The pseudo specificity assigned to a rule that contains an `!important` annotati
 #### Result
 The parser produces a sequence of data points with the following keys:
 
- * `specificity` (x axis)
- * `position` (y axis)
+ * `position` (x axis)
+ * `specificity` (y axis)
  * `selector` (annotation)
 
 For example, the following CSS:
