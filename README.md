@@ -15,7 +15,7 @@ There is also a second, shortcut, method `.noID()` which can be used if you aren
 #### `stylesheet` [required]
 Type: `String`
 
-This is the CSS to parse.  If the CSS can't be parsed it will throw and error.
+This is the CSS to parse.  If the CSS can't be parsed it will throw an error.
 
 #### `linear_scale`
 Type: `Boolean`
@@ -29,7 +29,7 @@ Default: `false`
 
 If you aren't using IDs in your CSS then this will leave a gap of an order of magnitude in the specificty graph between classes and `!important` annotations.  By setting this to `true` the parser will produce a graph that doesn't measure IDs.
 
-If you set this to true and the parser thinks it has found an ID it will throw an error.  This detection is just based on finding `#` in a selector so will be buggy.  However, it matches parker's ID specificity detection.
+If you set this to true and the parser thinks finds an ID it will throw an error.
 
 #### `important_specificity`
 Type: `Integer`
@@ -46,7 +46,7 @@ The parser produces a sequence of data points with the following keys:
 
 For example, the following CSS:
 
-    *{} body{} .main{} #content{} .hidden{display:none !important;}"
+    "*{} body{} .main{} #content{} .hidden{display:none !important;}"
 
 Would produce the following result:
 
@@ -78,5 +78,3 @@ Would produce the following result:
       }
     ]
 
-## Known issues
-This uses parker's specificity calculation which has [known issues](https://github.com/katiefenn/parker/issues/28).

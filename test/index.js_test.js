@@ -42,7 +42,7 @@ describe('CSS specificity map', function(){
         assert.deepEqual(
             M.parse('*::before{}'),
             [{
-              "specificity": 1.041, // Bug in parker https://github.com/katiefenn/parker/issues/28
+              "specificity": 0,
               "selector": "*::before",
               "position": 0
             }]);
@@ -142,7 +142,7 @@ describe('CSS specificity map', function(){
         assert.deepEqual(
             M.parse('::before{}', true),
             [{
-              "specificity": 11, // Bug in parker: https://github.com/katiefenn/parker/issues/28
+              "specificity": 1,
               "selector": "::before",
               "position": 0
             }]);

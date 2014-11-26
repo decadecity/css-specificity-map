@@ -1,16 +1,32 @@
 var css = require('css');
-var metrics = require('parker/metrics/All.js');
+var specificity = require('specificity');
 
-// Extract the function we need from parker.
-var specificityPerSelector;
-metrics.forEach(function(item) {
-  if (item.id === "specificity-per-selector") {
-    specificityPerSelector = item;
-  }
-});
-/* istanbul ignore if */
-if (typeof specificityPerSelector !== 'object' && typeof specificityPerSelector.measure !== 'function') {
-  throw new Error('Couldn\'t find the specificity selector from parker.');
+/**
+ * Makes a numeric specificity from an array.
+ *
+ * @param breakdown {array} Specificity in the form [N,N,N,N]
+ *
+ * @returns {integer} Specificity in numeric form.
+ */
+function numericSepecificity(breakdown) {
+  var specificity = 0;
+  specificity += breakdown[3];
+  specificity += breakdown[2] * 10;
+  specificity += breakdown[1] * 100;
+  return specificity;
+}
+
+/**
+ * Makes a specificity array from a string.
+ *
+ * @param breakdown {string} Specificity in the form 'N,N,N,N'
+ *
+ * @returns {array} Specificity in the form [N,N,N,N]
+ */
+function speficityArray(breakdown) {
+  return breakdown.split(',').map(function(item) {
+    return parseInt(item, 10);
+  });
 }
 
 // Module API we'll expose.
@@ -44,8 +60,9 @@ M.parse = function generateMap(stylesheet, linear_scale, no_id, important_specif
 
   var result = [];
 
+  var parsed;
   try {
-    var parsed = css.parse(stylesheet);
+    parsed = css.parse(stylesheet);
   } catch (e) {
     throw new Error('Unable to parse stylesheet');
   }
@@ -64,7 +81,11 @@ M.parse = function generateMap(stylesheet, linear_scale, no_id, important_specif
 
       // Walk through the selectors using this rule.
       rule.selectors.forEach(function iterateSelectors(selector) {
-        if (no_id && selector && selector.indexOf('#') > -1) {
+        var breakdown = specificity.calculate(selector);
+
+        var specificity_list = speficityArray(breakdown[0].specificity);
+
+        if (no_id && specificity_list[1]) {
           // Found an ID but no_id was set.
           // This detection is a hack and *will* fail.
           throw new Error('Found an ID but noID was enabled');
@@ -72,7 +93,7 @@ M.parse = function generateMap(stylesheet, linear_scale, no_id, important_specif
 
         // Data point on the graph for this selector.
         var data = {
-          specificity: specificityPerSelector.measure(selector),
+          specificity: numericSepecificity(specificity_list),
           selector: selector,
           // To cope with minified CSS we don't use the line number that
           // the CSS parser gets us, we count selectors to give us the
