@@ -8,6 +8,8 @@ Maps CSS specificity data for creating a [specificity graph](http://csswizardry.
 ## Usage
 The main method is `.parse()` which takes a CSS string and returns an array of data points.
 
+There is also a second, shortcut, method `.noID()` which can be used if you aren't using ID selectors in your CSS.  This is equivalent to calling `.parse()` with `linear_scale`: `false` and `no_id`: `true`.
+
 ### `parse(stylesheet, linear_scale, no_id, important_specificty)`
 
 #### `stylesheet` [required]
