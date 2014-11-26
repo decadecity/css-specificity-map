@@ -1,6 +1,8 @@
 css-specificity-map
 ===================
 
+[![Build Status](https://travis-ci.org/decadecity/css-specificity-map.svg?branch=master)](https://travis-ci.org/decadecity/css-specificity-map)
+
 Maps CSS specificity data for creating a [specificity graph](http://csswizardry.com/2014/10/the-specificity-graph/).
 
 ## Usage
@@ -34,6 +36,11 @@ Default: `1000`
 The pseudo specificity assigned to a rule that contains an `!important` annotation.  If `no_id` is true then this is reduced by a factor of 10.
 
 #### Result
+The parser produces a sequence of data points with the following keys:
+
+ * `specificity` (x axis)
+ * `position` (y axis)
+ * `selector` (annotation)
 
 For example, the following CSS:
 
@@ -68,3 +75,6 @@ Would produce the following result:
         "position": 5
       }
     ]
+
+## Known issues
+This uses parker's specificity calculation which has [known issues](https://github.com/katiefenn/parker/issues/28).
