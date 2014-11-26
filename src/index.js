@@ -44,8 +44,14 @@ M.parse = function generateMap(stylesheet, linear_scale, no_id, important_specif
 
   var result = [];
 
+  try {
+    var parsed = css.parse(stylesheet);
+  } catch (e) {
+    throw new Error('Unable to parse stylesheet');
+  }
+
   // Walk through the parsed stylesheet rules.
-  css.parse(stylesheet).stylesheet.rules.forEach(function iterateRules(rule) {
+  parsed.stylesheet.rules.forEach(function iterateRules(rule) {
     if (rule.selectors && rule.selectors.length) {
 
       // Look for an `!important` annotation in this rule's declarations.
@@ -59,6 +65,8 @@ M.parse = function generateMap(stylesheet, linear_scale, no_id, important_specif
       // Walk through the selectors using this rule.
       rule.selectors.forEach(function iterateSelectors(selector) {
         if (no_id && selector && selector.indexOf('#') > -1) {
+          // Found an ID but no_id was set.
+          // This detection is a hack and *will* fail.
           throw new Error('Found an ID but noID was enabled');
         }
 

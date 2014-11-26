@@ -1,6 +1,6 @@
 {
   "name": "css-specificity-map",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "CSS specificity mapper",
   "main": "./src/index.js",
   "scripts": {
@@ -14,7 +14,11 @@
     "CSS",
     "specificity"
   ],
-  "author": "Orde Saunders",
+  "author": {
+    "name": "Orde Saunders",
+    "email": "orde@decadecity.net",
+    "url": "https://decadecity.net/"
+  },
   "license": "Public Domain",
   "bugs": {
     "url": "https://github.com/decadecity/css-specificity-map/issues"

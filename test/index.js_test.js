@@ -15,6 +15,9 @@ describe('CSS specificity map', function(){
       it('should throw an error with non string input', function () {
         assert.throws(function() {M.parse();}, /Stylesheet is not a string/);
       });
+      it('should throw an error with non string input', function () {
+        assert.throws(function() {M.parse('.class');}, /Unable to parse stylesheet/);
+      });
 
       /* Default behaviour. */
       it('should return specificity -1 for the global selector.', function(){
@@ -35,6 +38,15 @@ describe('CSS specificity map', function(){
               "position": 0
             }]);
       });
+      it('should return specificity 0 for a pseudo-element selector.', function(){
+        assert.deepEqual(
+            M.parse('*::before{}'),
+            [{
+              "specificity": 1.041, // Bug in parker https://github.com/katiefenn/parker/issues/28
+              "selector": "*::before",
+              "position": 0
+            }]);
+      });
       it('should return specificity 1 for a class selector.', function(){
         assert.deepEqual(
             M.parse('.class{}'),
@@ -50,6 +62,15 @@ describe('CSS specificity map', function(){
             [{
               "specificity": 1,
               "selector": "*[type=text]",
+              "position": 0
+            }]);
+      });
+      it('should return specificity 1 for a pseudo-class selector.', function(){
+        assert.deepEqual(
+            M.parse('*:hover{}'),
+            [{
+              "specificity": 1,
+              "selector": "*:hover",
               "position": 0
             }]);
       });
@@ -117,15 +138,33 @@ describe('CSS specificity map', function(){
                 "position": 0
               }]);
         });
-        it('should return specificity 10 for a class selector.', function(){
-          assert.deepEqual(
-              M.parse('.class{}', true),
-              [{
-                "specificity": 10,
-                "selector": ".class",
-                "position": 0
-              }]);
-        });
+      it('should return specificity 1 for a pseudo-element selector.', function(){
+        assert.deepEqual(
+            M.parse('::before{}', true),
+            [{
+              "specificity": 11, // Bug in parker: https://github.com/katiefenn/parker/issues/28
+              "selector": "::before",
+              "position": 0
+            }]);
+      });
+      it('should return specificity 10 for a class selector.', function(){
+        assert.deepEqual(
+            M.parse('.class{}', true),
+            [{
+              "specificity": 10,
+              "selector": ".class",
+              "position": 0
+            }]);
+      });
+      it('should return specificity 1 for a pseudo-class selector.', function(){
+        assert.deepEqual(
+            M.parse('*:hover{}'),
+            [{
+              "specificity": 1,
+              "selector": "*:hover",
+              "position": 0
+            }]);
+      });
       it('should return specificity 10 for an attribute selector.', function(){
         assert.deepEqual(
             M.parse('*[type=text]{}', true),
