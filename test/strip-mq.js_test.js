@@ -1,7 +1,7 @@
 var assert = require('assert');
 var M = require('../src/strip-mq.js');
 
-describe('CSS specificity map', function(){
+describe('Strip media queries', function(){
   describe('Module M:', function(){
     it('should have a `parseStylesheet` Method.', function(){
       assert.equal(typeof M, 'object');
