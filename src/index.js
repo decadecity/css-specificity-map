@@ -1,3 +1,6 @@
+/*jslint node: true */
+'use strict';
+
 var css = require('css');
 var specificity = require('specificity');
 
@@ -43,7 +46,6 @@ var M = {};
  * @returns {array} Sequence of data points containing specificity, selector and position.
  */
 M.parse = function generateMap(stylesheet, linear_scale, no_id, important_specificity) {
-  'use strict';
 
   if (typeof stylesheet !== 'string') {
     throw new Error('Stylesheet is not a string');

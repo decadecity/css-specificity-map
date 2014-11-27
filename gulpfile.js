@@ -1,10 +1,15 @@
+/*jslint node: true */
+
+var browserify = require('browserify');
+var buffer = require('vinyl-buffer');
 var gulp   = require('gulp');
+var istanbul = require('gulp-istanbul');
 var jshint = require('gulp-jshint');
 var mocha  = require('gulp-mocha');
-var istanbul = require('gulp-istanbul');
+var source = require('vinyl-source-stream');
+var uglify = require('gulp-uglify');
 
 var watching = false;
-var coverage = true;
 
 function onError(err) {
   console.log(err.toString());
@@ -14,6 +19,31 @@ function onError(err) {
     process.exit(1);
   }
 }
+
+var getBundleName = function () {
+  var name = require('./package.json').name;
+  return name;
+};
+
+gulp.task('bundle', function() {
+
+  var bundler = browserify({
+    entries: ['./src/index.js'],
+    debug: true,
+    standalone: getBundleName()
+  });
+
+  var bundle = function() {
+    return bundler
+      .bundle()
+      .pipe(source(getBundleName() + '.min.js'))
+      .pipe(buffer())
+      .pipe(uglify())
+      .pipe(gulp.dest('./dist/'));
+  };
+
+  return bundle();
+});
 
 gulp.task('lint', function() {
   return gulp
@@ -41,3 +71,4 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', ['lint', 'test', 'watch']);
+gulp.task('build', ['lint', 'test', 'bundle']);

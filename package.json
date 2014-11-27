@@ -1,6 +1,6 @@
 {
   "name": "css-specificity-map",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "CSS specificity mapper",
   "main": "./src/index.js",
   "scripts": {
@@ -16,7 +16,6 @@
   ],
   "author": {
     "name": "Orde Saunders",
-    "email": "orde@decadecity.net",
     "url": "https://decadecity.net/"
   },
   "license": "Public Domain",
@@ -25,10 +24,14 @@
   },
   "homepage": "https://github.com/decadecity/css-specificity-map",
   "devDependencies": {
+    "browserify": "^6.3.3",
     "gulp": "^3.8.10",
     "gulp-istanbul": "^0.4.0",
     "gulp-jshint": "^1.9.0",
-    "gulp-mocha": "^2.0.0"
+    "gulp-mocha": "^2.0.0",
+    "gulp-uglify": "^1.0.1",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.0.0"
   },
   "dependencies": {
     "css": "^2.1.0",

@@ -5,6 +5,20 @@ css-specificity-map
 
 Maps CSS specificity data for creating a [specificity graph](http://csswizardry.com/2014/10/the-specificity-graph/).
 
+## Installation
+
+### Using node
+Install using npm: 
+
+    npm install css-specificity-map
+
+Include in your code:
+
+    var cssSpecificityMap = require('css-specificity-map');
+
+### In the browser
+There is a browserify build available in the `src/` directory.  When included it will make this module available as `cssSpecificityMap` on the global object.
+
 ## Usage
 The main method is `.parse()` which takes a CSS string and returns an array of data points.
 
