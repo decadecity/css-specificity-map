@@ -1,7 +1,7 @@
 /*jslint node: true */
 'use strict';
 
-var css = require('css');
+var stripMq = require('./strip-mq');
 var specificity = require('specificity');
 
 /**
@@ -64,15 +64,15 @@ M.parse = function generateMap(stylesheet, linear_scale, no_id, important_specif
 
   var result = [];
 
-  var parsed;
+  var rules;
   try {
-    parsed = css.parse(stylesheet);
+    rules = stripMq.parseStylesheet(stylesheet);
   } catch (e) {
     throw new Error('Unable to parse stylesheet');
   }
 
   // Walk through the parsed stylesheet rules.
-  parsed.stylesheet.rules.forEach(function iterateRules(rule) {
+  rules.forEach(function iterateRules(rule) {
     if (rule.selectors && rule.selectors.length) {
 
       // Look for an `!important` annotation in this rule's declarations.
