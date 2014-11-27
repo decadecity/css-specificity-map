@@ -27,27 +27,31 @@ There is also a second, shortcut, method `.noID()` which can be used if you aren
 ### `parse(stylesheet, linear_scale, no_id, important_specificty)`
 
 #### `stylesheet` [required]
-Type: `String`
+
+ * Type: `String`
 
 This is the CSS to parse.  If the CSS can't be parsed it will throw an error.
 
 #### `linear_scale`
-Type: `Boolean`
-Default: `false`
+
+ * Type: `Boolean`
+ * Default: `false`
 
 By default the specificity is mapped to a logarithmic scale.  Setting this to `true` will use a  linear scale.
 
 #### `no_id`
-Type: `Boolean`
-Default: `false`
+
+* Type: `Boolean`
+* Default: `false`
 
 If you aren't using IDs in your CSS then this will leave a gap of an order of magnitude in the specificty graph between classes and `!important` annotations.  By setting this to `true` the parser will produce a graph that doesn't measure IDs.
 
-If you set this to true and the parser thinks finds an ID it will throw an error.
+If you set this to true and the parser finds an ID it will throw an error.
 
 #### `important_specificity`
-Type: `Integer`
-Default: `1000`
+
+ * Type: `Integer`
+ * Default: `1000`
 
 The pseudo specificity assigned to a rule that contains an `!important` annotation.  If `no_id` is true then this is reduced by a factor of 10.
 
@@ -92,3 +96,5 @@ Would produce the following result:
       }
     ]
 
+## Known issues
+Specificity is calculated as a decimal which will lead to 11 classes having higher specificity than an ID.  Whilst this is technically incorrect it is still suitable for the purposes of this visualisation.

@@ -57,6 +57,8 @@ M.parse = function generateMap(stylesheet, linear_scale, no_id, important_specif
   }
 
   if (no_id) {
+    // If we're not using IDs then we need to drop the specificity of
+    // `!important` by a power of 10 to avoid a gap in the graph.
     important_specificity = important_specificity / 10;
   }
 
@@ -88,8 +90,6 @@ M.parse = function generateMap(stylesheet, linear_scale, no_id, important_specif
         var specificity_list = speficityArray(breakdown[0].specificity);
 
         if (no_id && specificity_list[1]) {
-          // Found an ID but no_id was set.
-          // This detection is a hack and *will* fail.
           throw new Error('Found an ID but noID was enabled');
         }
 
@@ -116,7 +116,7 @@ M.parse = function generateMap(stylesheet, linear_scale, no_id, important_specif
             data.specificity = 0.1;
           }
           // This needs a rounding fudge to cope with floating point maths.
-          data.specificity = Math.round(Math.log(data.specificity) / Math.log(10) * 1000) / 1000;
+          data.specificity = parseFloat((Math.log(data.specificity) / Math.log(10)).toFixed(3));
         }
 
         result.push(data);
