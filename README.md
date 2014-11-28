@@ -3,7 +3,9 @@ css-specificity-map
 
 [![Build Status](https://travis-ci.org/decadecity/css-specificity-map.svg?branch=master)](https://travis-ci.org/decadecity/css-specificity-map)
 
-Maps CSS specificity data for creating a [specificity graph](http://csswizardry.com/2014/10/the-specificity-graph/).
+Maps CSS specificity data for creating a [specificity graph](http://csswizardry.com/2014/10/the-specificity-graph/).  Based on experience of [using specificity graphs](https://decadecity.net/blog/2014/11/26/css-specificity-graphs).
+
+Interactive example [running in the browser](https://decadecity.net/static/html/css-specificity-graph/).
 
 ## Installation
 
@@ -98,3 +100,7 @@ Would produce the following result:
 
 ## Known issues
 Specificity is calculated as a decimal which will lead to 11 classes having higher specificity than an ID.  Whilst this is technically incorrect it is still suitable for the purposes of this visualisation.
+
+## Release history
+
+  * 2014-11-28: v1.0.0 - First stable release.
