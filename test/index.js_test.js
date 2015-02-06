@@ -117,6 +117,15 @@ describe('CSS specificity map', function(){
               }
             ]);
       });
+      it('should handle a rule which contains lines which only contain a comment', function(){
+        assert.deepEqual(
+            M.parse('.class{\n/* test comment */\nfont-weight: bold;\n}'),
+            [{
+              "specificity": 1,
+              "selector": ".class",
+              "position": 0
+            }]);
+      });
 
       /* Linear scale */
       describe('M.parse() with a linear scale', function(){
