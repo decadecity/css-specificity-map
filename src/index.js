@@ -78,7 +78,7 @@ M.parse = function generateMap(stylesheet, linear_scale, no_id, important_specif
       // Look for an `!important` annotation in this rule's declarations.
       var important = false;
       rule.declarations.forEach(function iterateDeclarations(rule) {
-        if (!important && rule.value.indexOf('!important') > -1) {
+        if (!important && rule.value && rule.value.indexOf('!important') > -1) {
           important = true;
         }
       });
