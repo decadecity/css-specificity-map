@@ -23,11 +23,11 @@ There is a browserify build available in the `src/` directory.  When included it
 
 Include in your page:
 
-  <script src="css-specificity-map.min.js"></script>
+    <script src="css-specificity-map.min.js"></script>
 
 Use in your code:
 
-  cssSpecificityMap.parse(/* CSS string */);
+    cssSpecificityMap.parse(/* CSS string */);
 
 ## Usage
 The main method is `.parse()` which takes a CSS string and returns an array of data points.
