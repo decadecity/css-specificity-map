@@ -5,7 +5,7 @@ css-specificity-map
 
 Maps CSS specificity data for creating a [specificity graph](http://csswizardry.com/2014/10/the-specificity-graph/).  Based on experience of [using specificity graphs](https://decadecity.net/blog/2014/11/26/css-specificity-graphs).
 
-Interactive example [running in the browser](https://decadecity.net/static/html/css-specificity-graph/).
+Interactive example [running in the browser](https://decadecity.net/sprue/css-specificity-graph).
 
 ## Installation
 
