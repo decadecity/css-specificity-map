@@ -21,6 +21,14 @@ Include in your code:
 ### In the browser
 There is a browserify build available in the `src/` directory.  When included it will make this module available as `cssSpecificityMap` on the global object.
 
+Include in your page:
+
+  <script src="css-specificity-map.min.js"></script>
+
+Use in your code:
+
+  cssSpecificityMap.parse(/* CSS string */);
+
 ## Usage
 The main method is `.parse()` which takes a CSS string and returns an array of data points.
 
@@ -103,4 +111,5 @@ Specificity is calculated as a decimal which will lead to 11 classes having high
 
 ## Release history
 
+  * 2015-02-09: v1.0.1 - Fix for comment only lines.
   * 2014-11-28: v1.0.0 - First stable release.
